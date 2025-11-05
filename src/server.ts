@@ -72,5 +72,6 @@ app.delete('/api/suppliers/:id', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Supplier Management System running on http://localhost:${PORT}`);
+  console.log(`Open http://localhost:${PORT} in your browser`);
 });
 
