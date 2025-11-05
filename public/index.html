@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Management - QMS</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏭 Supplier Management</h1>
+            <p class="subtitle">Manage and evaluate supplier performance</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>Quick Actions</h2>
+                <button class="btn btn-primary" hx-get="/api/suppliers" hx-target="#supplier-list" hx-swap="innerHTML">
+                    Refresh List
+                </button>
+            </div>
+
+            <div class="content">
+                <div class="card">
+                    <h2>Register Supplier</h2>
+                    <form hx-post="/api/suppliers" hx-target="#supplier-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
+                        <div class="form-group">
+                            <label for="name">Supplier Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">Contact Email</label>
+                            <input type="email" id="contact" name="contact" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="Raw Materials">Raw Materials</option>
+                                <option value="Components">Components</option>
+                                <option value="Services">Services</option>
+                                <option value="Equipment">Equipment</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <select id="rating" name="rating">
+                                <option value="A">A - Excellent</option>
+                                <option value="B">B - Good</option>
+                                <option value="C">C - Satisfactory</option>
+                                <option value="D">D - Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" name="status">
+                                <option value="Pending">Pending</option>
+                                <option value="Under Review">Under Review</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Suspended">Suspended</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastAudit">Last Audit Date</label>
+                            <input type="date" id="lastAudit" name="lastAudit">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register Supplier</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Supplier List</h2>
+                    <div id="supplier-list" hx-get="/api/suppliers" hx-trigger="load">
+                        <div class="loading">Loading suppliers...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
+
